@@ -23,9 +23,18 @@
       function generateQR() {
         if (input.value.length > 0) {
           let url = input.value;
-          let qrcode = ` https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${url}`;
+          let qrcode = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${url}`;
+          
+          // Set image source
           qrImage.src = qrcode;
-          imgBox.classList.add("show-img");
+          
+          // Hide the imgBox until the image fully loads
+          imgBox.classList.remove("show-img");
+          
+          // Wait for the image to load
+          qrImage.onload = () => {
+            imgBox.classList.add("show-img");
+          };
         } else {
           input.classList.add("error");
           setTimeout(() => {
